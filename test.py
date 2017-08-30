@@ -8,6 +8,8 @@ IDF={}
 idfq={}
 idfd={}
 results={}
+number_of_files=0
+cntrlty=[]
 #######
 def tfquery(query):
     wordcount = {}
@@ -26,9 +28,9 @@ def tfquery(query):
 def each_query(query):
     img_folder_path = "C:\\Users\\Aman Goyal\\PycharmProjects\\Web minning\\HTML"
     dirListing = os.listdir(img_folder_path)
+    global number_of_files
     number_of_files = len(dirListing)
     totaloccur=0
-
     for word in query.split():
         if word not in TFd:
             TFd[word] = 1
@@ -43,7 +45,7 @@ def each_query(query):
         for i in range(number_of_files):
             file = "HTML\\" + dirListing[i]
             f = open(file, "r")
-            x = f.read()
+            x = f.read().lower()
             occur = 0;
             totalword = 0;
             wordcount = {}
@@ -104,10 +106,22 @@ def finale():
             x2+=docwise[i][j]*docwise[i][j]
             x3+=idfq[j]*idfq[j]
         results[i]=x1/(math.sqrt(x2)*math.sqrt(x3))
-    print(results)
+def prepnex():
+    global inlink
+    inlink=[[0,0,0],[0,0,0],[1,1,0]]
+    for a in inlink:
+        x=0
+        q = 0
+        for b in a:
+            x+=b
+            q+=1
+        cntrlty.append(x/q)
+    print(cntrlty)
+
+
 #start of code
-use_entry="mining web aman varun"
-each_query(use_entry)#doc calculation make corrction
+use_entry="web mining"
+each_query(use_entry.lower())#doc calculation make corrction
 tfquery(use_entry)#make TF of query
 #print(TFd)
 #print(TFq)
@@ -118,3 +132,7 @@ TFIDd()#doc* IDF
 #print(idfq)
 finalprep()
 finale()
+print(results)
+#TF wala kam
+#In link outlink
+prepnex()
