@@ -8,6 +8,7 @@ IDF={}
 idfq={}
 idfd={}
 results={}
+inlink={}
 number_of_files=0
 cntrlty=[]
 #######
@@ -24,7 +25,6 @@ def tfquery(query):
         #print(c)
         TFq[c]=wordcount[c]/totalword
     #print(TFq)
-#####################################################################
 def each_query(query):
     img_folder_path = "C:\\Users\\Aman Goyal\\PycharmProjects\\Web minning\\HTML"
     dirListing = os.listdir(img_folder_path)
@@ -71,12 +71,10 @@ def each_query(query):
         IDF[y]=idf
         TFd[y]=firststep
     #print(IDF)
-###################################################################
 def TIDFq():
     for i in TFd:
         idfq[i]=IDF[i]*TFq[i]
     #print(idfq)
-####################################################################
 def TFIDd():
     for i in IDF:
         x = {}
@@ -84,7 +82,6 @@ def TFIDd():
             x[j]=TFd[i][j]*IDF[i]
         idfd[i] = x
     #print(idfd)
-####################################################################
 def finalprep():
     for i in idfq:#mining
         for j in idfd[i]:#doc_name mining
@@ -93,7 +90,6 @@ def finalprep():
             else:
                 docwise[j].update({i:idfd[i][j]})
     #print(docwise)
-####################################################################
 def finale():
     #print(idfq)
     #print(docwise)
@@ -106,17 +102,26 @@ def finale():
             x2+=docwise[i][j]*docwise[i][j]
             x3+=idfq[j]*idfq[j]
         results[i]=x1/(math.sqrt(x2)*math.sqrt(x3))
+
 def prepnex():
     global inlink
-    inlink=[[0,0,0],[0,0,0],[1,1,0]]
-    for a in inlink:
-        x=0
-        q = 0
-        for b in a:
-            x+=b
-            q+=1
-        cntrlty.append(x/q)
-    print(cntrlty)
+    inlink={}
+    q=results.__len__()
+    temp=[]
+    for i in results.keys():
+        temp.append(i)
+    for i in range(0,q):
+        y=[]
+        for j in range(0,q):
+            x=0
+            if i != j:
+                print("link of",temp[i],"with",temp[j],"1 or 0")
+                x=input()
+            y.append(x)
+        inlink[temp[i]]=y
+   #print(inlink)
+   #cntrlty.append(x)
+   # print(cntrlty)
 
 
 #start of code
@@ -136,3 +141,4 @@ print(results)
 #TF wala kam
 #In link outlink
 prepnex()
+print(inlink)
