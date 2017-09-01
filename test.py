@@ -1,6 +1,7 @@
 import os
 import re
 import math
+import copy
 docwise={}
 TFd={}
 TFq={}
@@ -10,7 +11,7 @@ idfd={}
 results={}
 inlink={}
 number_of_files=0
-cntrlty=[]
+dup={}
 #######
 def tfquery(query):
     wordcount = {}
@@ -105,7 +106,6 @@ def finale():
 
 def prepnex():
     global inlink
-    inlink={}
     q=results.__len__()
     temp=[]
     for i in results.keys():
@@ -116,14 +116,23 @@ def prepnex():
             x=0
             if i != j:
                 print("link of",temp[i],"with",temp[j],"1 or 0")
-                x=input()
+                x=int(input())
             y.append(x)
         inlink[temp[i]]=y
-   #print(inlink)
-   #cntrlty.append(x)
-   # print(cntrlty)
 
 
+def calLinkweight():
+    global dup
+    global inlink
+    dup=copy.deepcopy(inlink)
+    print("Weight")
+    k=0
+    for i in results:
+        for j in dup:
+            inlink[j][k]=inlink[j][k]*results[i]
+        k+=1
+    print(inlink)
+    print(dup)
 #start of code
 use_entry="web mining"
 each_query(use_entry.lower())#doc calculation make corrction
@@ -142,3 +151,4 @@ print(results)
 #In link outlink
 prepnex()
 print(inlink)
+calLinkweight()
