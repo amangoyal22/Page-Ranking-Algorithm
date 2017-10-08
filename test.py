@@ -2,6 +2,7 @@ import os
 import re
 import math
 import copy
+
 docwise={}
 TFd={}
 TFq={}
@@ -11,8 +12,11 @@ idfd={}
 results={}
 inlink={}
 number_of_files=0
-dup={}
-#######
+adjacency={}
+x={}
+rank={}
+out={}
+
 def tfquery(query):
     wordcount = {}
     totalword=0
@@ -26,6 +30,7 @@ def tfquery(query):
         #print(c)
         TFq[c]=wordcount[c]/totalword
     #print(TFq)
+        #tf of the query
 def each_query(query):
     img_folder_path = "C:\\Users\\Aman Goyal\\PycharmProjects\\Web minning\\HTML"
     dirListing = os.listdir(img_folder_path)
@@ -37,7 +42,6 @@ def each_query(query):
             TFd[word] = 1
         if word not in IDF:
             IDF[word] = 1
-
     for y in TFd:
         #print(y)
         firststep = {}
@@ -72,6 +76,7 @@ def each_query(query):
         IDF[y]=idf
         TFd[y]=firststep
     #print(IDF)
+        #tf and idf of the doc
 def TIDFq():
     for i in TFd:
         idfq[i]=IDF[i]*TFq[i]
@@ -95,15 +100,14 @@ def finale():
     #print(idfq)
     #print(docwise)
     for i in docwise:
-        x1 = 0
-        x2 = 0
-        x3 = 0
+        x1 = 1
+        x2 = 1
+        x3 = 1
         for j in idfq:
             x1+=docwise[i][j]*idfq[j]
             x2+=docwise[i][j]*docwise[i][j]
             x3+=idfq[j]*idfq[j]
         results[i]=x1/(math.sqrt(x2)*math.sqrt(x3))
-
 def prepnex():
     global inlink
     q=results.__len__()
@@ -119,22 +123,59 @@ def prepnex():
                 x=int(input())
             y.append(x)
         inlink[temp[i]]=y
-
-
 def calLinkweight():
-    global dup
+    global adjacency
     global inlink
-    dup=copy.deepcopy(inlink)
-    print("Weight")
+    adjacency=copy.deepcopy(inlink)
     k=0
     for i in results:
-        for j in dup:
+        for j in adjacency:
             inlink[j][k]=inlink[j][k]*results[i]
         k+=1
-    print(inlink)
-    print(dup)
+    #print(inlink) cosine similarity and adjaceny matrix ka merge inlink hai or adjacency is new adjacency matrix
+    #print(adjacency)
+def degreein():
+    global x
+    for i in inlink:
+        x[i]=0;
+        out[i]=1;
+    for i in inlink:
+         for k in range(0,len(inlink)):
+            x[i] +=inlink[i][k]
+            #print(i,"xxxxxxxx",inlink[i][k],"xxxxx",x[i])
+    for i in inlink:
+        for j in inlink[i]:
+            if(j>0):
+                out[i]+=1
+    k=0
+    for i in x:
+        x[i]/=len(x)
+        k=k+x[i]
+    for j in x:
+        x[j]=x[j]/k
+def pagerank():
+    global x
+    global results
+    global rank
+    d=0.35
+    for i in x:
+        #print(out[i],"ffffffffffff",x[i],"ffffffffff",results[i])
+        rank[i]=math.pow(d,out[i])*x[i]*results[i]/out[i]
+    print(rank)
+    k=0
+    for i in rank:
+        k+=rank[i]
+    for i in rank:
+        rank[i]/=k;
+    #rank formula with normalized
+def pagerankprint():
+    global rank
+    print("\t\tFinale ranking:\t\n")
+    for i in sorted(rank, key=rank.get, reverse=True):
+        print("\t",i)
+
 #start of code
-use_entry="web mining"
+use_entry="aman";
 each_query(use_entry.lower())#doc calculation make corrction
 tfquery(use_entry)#make TF of query
 #print(TFd)
@@ -146,9 +187,19 @@ TFIDd()#doc* IDF
 #print(idfq)
 finalprep()
 finale()
-print(results)
+print("CS: ",results)
 #TF wala kam
 #In link outlink
 prepnex()
-print(inlink)
+#print(inlink)
 calLinkweight()
+print("adjacency matrix: ",adjacency)
+print("adjacency with cs: ",inlink)
+degreein()
+print("inlinks: ",x)
+print("outlinks",out)
+pagerank()
+print("RANK value of page",rank)
+#print("RANK value of page",sorted(rank.items(), key=lambda t:t[1]))
+#print("RANK value of page",sorted(rank, key=rank.get, reverse=True))
+pagerankprint()
