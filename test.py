@@ -167,6 +167,15 @@ def pagerank():
         k+=rank[i]
     for i in rank:
         rank[i]/=k;
+    k=0
+    j=0
+    for i in rank:
+       if(k!=0):
+           if(k==rank[i]):
+               j=j+1
+       k = rank[i]
+       if(j==len(rank)-1):
+           print("\n\t\tAll ranking are same therefore no document is give special preference\n")
     #rank formula with normalized
 def pagerankprint():
     global rank
