@@ -129,9 +129,9 @@ def calLinkweight():
     adjacency=copy.deepcopy(inlink)
     k=0
     for i in results:
-        for j in adjacency:
-            inlink[j][k]=inlink[j][k]*results[i]
-        k+=1
+        for j in range(0,len(adjacency)):
+            inlink[i][j]=inlink[i][j]*results[i]
+        k=k+1
     #print(inlink) cosine similarity and adjaceny matrix ka merge inlink hai or adjacency is new adjacency matrix
     #print(adjacency)
 def degreein():
@@ -183,32 +183,49 @@ def pagerankprint():
     for i in sorted(rank, key=rank.get, reverse=True):
         print("\t",i)
 
+def calculateCosSimilarity(query):
+    each_query(query.lower())
+    tfquery(query)
+    TIDFq()
+    TFIDd()
+    finalprep()
+    finale()
+def calculateInDegreeWRTCosSimilarity():
+    prepnex()
+    calLinkweight()
+    degreein()
+def calculateSugoRank():
+    pagerank()
+    pagerankprint()
+
 #start of code
-use_entry="aman";
-each_query(use_entry.lower())#doc calculation make corrction
-tfquery(use_entry)#make TF of query
+use_entry="web mining";
+#doc calculation make corrction
+
+calculateCosSimilarity(use_entry)
+
+#make TF of query
 #print(TFd)
 #print(TFq)
 #print(IDF)
-TIDFq()#query * iDF
-TFIDd()#doc* IDF
+#query * iDF
+#doc* IDF
 #print(idfd)
 #print(idfq)
-finalprep()
-finale()
 print("CS: ",results)
 #TF wala kam
 #In link outlink
-prepnex()
 #print(inlink)
-calLinkweight()
+
+calculateInDegreeWRTCosSimilarity()
+print("CS: ",results)
 print("adjacency matrix: ",adjacency)
 print("adjacency with cs: ",inlink)
-degreein()
 print("inlinks: ",x)
 print("outlinks",out)
-pagerank()
-print("RANK value of page",rank)
+calculateSugoRank()
+
+#print("RANK value of page",rank)
+
 #print("RANK value of page",sorted(rank.items(), key=lambda t:t[1]))
 #print("RANK value of page",sorted(rank, key=rank.get, reverse=True))
-pagerankprint()
