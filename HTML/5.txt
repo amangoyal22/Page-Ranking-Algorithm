@@ -1,0 +1,29 @@
+
+
+Data mining, the extraction of hidden predictive information from large databases, is a
+powerful new technology with great potential. Data mining is a knowledge discovery
+process in large and complex data sets, refers to extracting or “mining” knowledge from
+large amounts of data. Moreover, data mining can be used to predict an outcome for a given
+entity (Hernández et al., 2006).
+Thus clustering algorithms in data mining are equivalent to the task of identifying groups of
+Open Access Database www.intechweb.org
+records that are similar between themselves but different from the rest. (Varan, 2006).
+
+1.3 Web mining
+Usually, web mining is categorized as web content mining and web usage mining. The first
+studies the search and retrieval of information on the web, while the second discovers and
+analyzes user’s access pattern (Xu et al., 2003). A knowledge discovery tool, WebLogMiner, is
+discussed in (Zaiane et al., 1998), which uses OLAP and data mining techniques for mining
+web server log files. In (Mobasher et al, 2000), a web mining frame-work which integrated
+both usage and content attributes of a site is described. Some techniques based on clustering
+and association rules are proposed. In (Yao & Yao, 2003; Yao, 2003) presents a framework
+and information retrieval techniques to support individual scientists doing research.
+3. Web radio
+A research is detailed to acquire knowledge about how to develop a Web Radio using Social
+Data Mining and Cultural Algorithms (Reynolds, 1998), to a best functionality of it. Main
+thematic of the web radio is music to dance, that includes all the rates that consider
+equipment to dance, its directed to an ample segment of the society, whose only restriction
+is focused towards the different musical likes, any person who has desires to listen music
+and why not, to take advantage of it to dance, doesn’t matter sex, age, civil state, nationality
+or many other factors, can access to our web counting on access to internet. Data Mining is
+very useful to any kind of projects, for that reason, we decided to use it inside, with this

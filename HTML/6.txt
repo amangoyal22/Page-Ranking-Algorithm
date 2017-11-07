@@ -1,0 +1,22 @@
+Data and Web Mining
+
+
+Instructor: Salvatore Orlando
+
+Goals
+
+Data Mining involves a set of techniques and methods to extract novel knowledge from large databases, to be profitably exploited by decisional processes. Data Mining is one of the main activities in the complex process of Knowledge Discovery in Databases (KDD). The course deals with the fundamentals of this subject, by focusing on the most important algorithmic techniques. 
+Moreover, the course uses as case of study the Web, and the chances of extracting useful knowledge by mining the hyperlink structure of the Web, its contents and the usage logs.
+Contents
+
+Introduction to Data Mining. Concepts and overview of the KDD process. Applications.
+Data Mining techniques and algorithms: clustering, classification, association rules.
+Data cleaning and visualization.
+Web mining: mining of contents, hyperlink structure, and the usage logs.
+Web Search
+Recommended Reading List
+
+Lecture slides and notes
+P.-N. Tan, M. Steinbach, V. Kumar. Introduction to Data Mining. Pearson Addison-Wesley.
+Bing Liu. Web Data Mining: Exploring Hyperlinks, Contents, and Usage Data. Springer-Verlag, 2006.
+

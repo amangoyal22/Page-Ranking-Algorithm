@@ -2,6 +2,27 @@ import os
 import re
 import math
 import copy
+from xlwt import Workbook
+
+wb=Workbook()
+sheet1=wb.add_sheet('Summary')
+sheet1.col(0).width=4000
+sheet1.col(1).width=4000
+sheet1.col(2).width=4000
+sheet1.col(3).width=11000
+sheet1.col(4).width=5000
+sheet1.col(5).width=4500
+sheet1.col(6).width=4500
+sheet1.write(0,0,'Document Name')
+sheet1.write(0,1,'Cosine Similarity')
+sheet1.write(0,2,'Adjacency Matrix')
+sheet1.write(0,3,'Adjacency with CS')
+sheet1.write(0,4,'Predegree')
+sheet1.write(0,5,'Number of Outlinks')
+sheet1.write(0,6,'Rank list parameter')
+sheet2=wb.add_sheet('Ranking....')
+sheet2.write(0,4,'Document According to the Ranking')
+sheet2.col(4).width=9000
 
 docwise={}
 TFd={}
@@ -161,7 +182,12 @@ def pagerank():
     for i in x:
         #print(out[i],"ffffffffffff",x[i],"ffffffffff",results[i])
         rank[i]=math.pow(d,out[i])*x[i]*results[i]/out[i]
-    print(rank)
+    print("Rank LIST: ",rank)
+    j = 1
+    for i in rank:
+        sheet1.write(j, 6, rank[i])
+        j += 1
+
     k=0
     for i in rank:
         k+=rank[i]
@@ -179,9 +205,15 @@ def pagerank():
     #rank formula with normalized
 def pagerankprint():
     global rank
+    global sheet2
     print("\t\tFinale ranking:\t\n")
+    j=1
     for i in sorted(rank, key=rank.get, reverse=True):
         print("\t",i)
+        sheet2.write(j, 4,i)
+        j += 1
+
+
 
 def calculateCosSimilarity(query):
     each_query(query.lower())
@@ -190,7 +222,7 @@ def calculateCosSimilarity(query):
     TFIDd()
     finalprep()
     finale()
-def calculateInDegreeWRTCosSimilarity():
+def calculateInOutDegree():
     prepnex()
     calLinkweight()
     degreein()
@@ -199,7 +231,7 @@ def calculateSugoRank():
     pagerankprint()
 
 #start of code
-use_entry="web mining";
+use_entry="web mining"
 #doc calculation make corrction
 
 calculateCosSimilarity(use_entry)
@@ -217,14 +249,40 @@ print("CS: ",results)
 #In link outlink
 #print(inlink)
 
-calculateInDegreeWRTCosSimilarity()
+calculateInOutDegree()
 print("CS: ",results)
-print("adjacency matrix: ",adjacency)
-print("adjacency with cs: ",inlink)
-print("inlinks: ",x)
-print("outlinks",out)
-calculateSugoRank()
+j=1
+for i in results:
+    sheet1.write(j, 0,i)
+    sheet1.write(j, 1,results[i])
+    j+=1
 
+print("adjacency matrix: ",adjacency)
+j=1
+for i in adjacency:
+    sheet1.write(j,2,str(adjacency[i]))
+    j+=1
+
+print("adjacency with cs: ",inlink)
+j=1
+for i in inlink:
+    sheet1.write(j,3,str(inlink[i]))
+    j+=1
+
+print("inlinks: ",x)
+j=1
+for i in x:
+    sheet1.write(j,4,x[i])
+    j+=1
+
+print("outlinks",out)
+j=1
+for i in out:
+    sheet1.write(j,5,out[i])
+    j+=1
+
+calculateSugoRank()
+wb.save('Book1.xls')
 #print("RANK value of page",rank)
 
 #print("RANK value of page",sorted(rank.items(), key=lambda t:t[1]))
